@@ -11,6 +11,7 @@ import { Interpreter } from './hypertalk/interpreter.js';
 import { welcomeStack } from './stacks/demo-welcome.js';
 import { ouijaStack } from './stacks/demo-ouija.js';
 import { hauntedHouseStack } from './stacks/demo-haunted-house.js';
+import { ghostHuntStack } from './stacks/demo-ghost-hunt.js';
 
 const canvas = document.getElementById('card-canvas');
 const titleEl = document.getElementById('stack-title');
@@ -203,6 +204,7 @@ initMenus({
     { label: 'Welcome to PhantomCard', action: () => loadStack(welcomeStack(), false) },
     { label: 'The Séance Deck', action: () => loadStack(ouijaStack(), false) },
     { label: 'The Haunted House', action: () => loadStack(hauntedHouseStack(), false) },
+    { label: 'Ghost Hunt', action: () => loadStack(ghostHuntStack(), false) },
     { sep: true },
     { label: 'New Stack…', action: newStack },
   ],
@@ -248,6 +250,7 @@ function showSplash() {
     ['Welcome', welcomeStack],
     ['The Séance Deck', ouijaStack],
     ['The Haunted House', hauntedHouseStack],
+    ['Ghost Hunt', ghostHuntStack],
     ['New Stack…', null],
   ]) {
     const b = document.createElement('button');

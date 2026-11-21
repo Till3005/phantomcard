@@ -656,7 +656,7 @@ export class Interpreter {
       if (what === 'buttons' || what === 'fields') {
         const card = this.runtime.getCurrentCard();
         const kind = what === 'buttons' ? 'button' : 'field';
-        return String((card?.objects || []).filter((o) => o.type === kind).length);
+        return String((card?.objects || []).filter((o) => o.kind === kind).length);
       }
       // 'the number of <chunk> of <expr>'
       if (node.container) {
