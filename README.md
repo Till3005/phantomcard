@@ -43,6 +43,7 @@ python3 -m http.server 8080
 | Welcome to PhantomCard | A three-card tour of cards, objects and HyperTalk |
 | The Séance Deck | A working Ouija board — ask, and the planchette answers |
 | The Haunted House | A five-card mini adventure built from 12 objects and a page of script |
+| Ghost Hunt | A playable mini-game — 9 haunted windows, 15 ghosts, real HyperTalk game logic |
 
 Find them in the **Stacks** menu, or close the window for the séance parlour.
 
