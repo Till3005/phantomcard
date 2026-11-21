@@ -123,8 +123,11 @@ export function renderCard(canvas, events) {
     if (obj) canvas.appendChild(renderOne(obj, 'card'));
   }
 
-  // dissolve transition animation
-  canvas.classList.remove('dissolve');
-  void canvas.offsetWidth;
-  if (!canvas.dataset.noAnim && currentCardIndex != null) canvas.classList.add('dissolve');
+  // dissolve transition animation — only on actual card changes
+  if (!canvas.dataset.noAnim && canvas.dataset.lastCard !== card.id) {
+    canvas.classList.remove('dissolve');
+    void canvas.offsetWidth;
+    canvas.classList.add('dissolve');
+  }
+  canvas.dataset.lastCard = card.id;
 }

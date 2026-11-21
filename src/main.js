@@ -77,6 +77,7 @@ store.subscribe(render);
 function goTo(index, fireClose = true) {
   const card = currentCard();
   if (fireClose && card) fire('closeCard', card);
+  document.getElementById('inspector-host').innerHTML = '';
   store.dispatch({ type: 'SET_CARD', index });
   writeHash(store.getState().stack);
   fire('openCard', currentCard());
@@ -290,6 +291,7 @@ document.addEventListener('keydown', e => {
 
 // ── boot ─────────────────────────────────────────────────────────────────────
 function loadStack(stack, useHash = false) {
+  document.getElementById('inspector-host').innerHTML = '';
   store.dispatch({ type: 'LOAD_STACK', stack, cardIndex: 0 });
   writeHash(stack);
   fire('openStack', stack);
