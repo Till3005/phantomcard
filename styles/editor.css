@@ -1,0 +1,109 @@
+/* PhantomCard — edit mode: selection, handles, inspectors */
+.sel-frame {
+  position: absolute;
+  border: 1px dashed var(--black);
+  pointer-events: none;
+  z-index: 900;
+}
+.sel-handle {
+  position: absolute;
+  width: 7px; height: 7px;
+  background: var(--black);
+  border: 1px solid var(--white);
+  z-index: 901;
+  pointer-events: auto;
+}
+.sel-handle.nw { cursor: nw-resize; }
+.sel-handle.n  { cursor: n-resize; }
+.sel-handle.ne { cursor: ne-resize; }
+.sel-handle.e  { cursor: e-resize; }
+.sel-handle.se { cursor: se-resize; }
+.sel-handle.s  { cursor: s-resize; }
+.sel-handle.sw { cursor: sw-resize; }
+.sel-handle.w  { cursor: w-resize; }
+
+/* inspector windows — floating System 7 panels */
+.inspector {
+  position: absolute;
+  background: var(--white);
+  border: 1px solid var(--black);
+  box-shadow: 2px 2px 0 var(--black);
+  z-index: 500;
+  font-family: var(--font-chicago);
+  font-size: 12px;
+  min-width: 200px;
+}
+.inspector .title-bar { cursor: move; }
+.inspector-body { padding: 8px; }
+.inspector-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.inspector-row label { flex: 0 0 64px; }
+.inspector-row input[type=text],
+.inspector-row input[type=number],
+.inspector-row select {
+  flex: 1;
+  font-family: var(--font-chicago);
+  font-size: 12px;
+  border: 1px solid var(--black);
+  padding: 2px 4px;
+  background: var(--white);
+  outline: none;
+}
+.inspector-row input:focus, .inspector-row select:focus {
+  background: var(--black);
+  color: var(--white);
+}
+.inspector-btns {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 8px;
+}
+.inspector-btns button {
+  font-family: var(--font-chicago);
+  font-size: 12px;
+  background: var(--white);
+  border: 1px solid var(--black);
+  padding: 3px 10px;
+  cursor: default;
+}
+.inspector-btns button:active { background: var(--black); color: var(--white); }
+.inspector-btns button.default {
+  outline: 3px solid var(--black);
+  outline-offset: 2px;
+}
+
+/* script inspector */
+.script-inspector { width: 380px; }
+.script-inspector textarea {
+  width: 100%;
+  height: 240px;
+  font-family: var(--font-monaco);
+  font-size: 12px;
+  border: 1px solid var(--black);
+  padding: 4px;
+  resize: none;
+  outline: none;
+  line-height: 1.4;
+}
+.script-errors {
+  margin-top: 4px;
+  min-height: 14px;
+  font-size: 10px;
+  color: var(--black);
+}
+.script-errors.err { background: var(--black); color: var(--white); padding: 2px 4px; }
+
+/* new object ghost during creation drag */
+.create-ghost {
+  position: absolute;
+  border: 1px dashed var(--black);
+  background: repeating-conic-gradient(#fff 0% 25%, #000 0% 50%) 0 0 / 2px 2px;
+  opacity: 1;
+  z-index: 800;
+  pointer-events: none;
+}

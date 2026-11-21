@@ -1,0 +1,207 @@
+/* PhantomCard — base chrome: desktop, menu bar, window, toolbar */
+@font-face {
+  font-family: 'Silkscreen';
+  src: url('../src/vendor/fonts/Silkscreen-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Silkscreen';
+  src: url('../src/vendor/fonts/Silkscreen-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --card-width: 512px;
+  --card-height: 342px;
+  --font-chicago: 'Silkscreen', 'Chicago', 'Charcoal', system-ui, sans-serif;
+  --font-geneva: 'Geneva', 'Helvetica Neue', Helvetica, sans-serif;
+  --font-monaco: 'Monaco', 'Courier New', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: var(--font-chicago);
+  font-size: 12px;
+  color: var(--black);
+  overflow: hidden;
+}
+
+/* the dithered gray desktop */
+#desktop {
+  position: fixed;
+  inset: 0;
+  background: repeating-conic-gradient(#888 0% 25%, #fff 0% 50%) 0 0 / 2px 2px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- menu bar --- */
+#menubar {
+  height: 20px;
+  background: var(--white);
+  border-bottom: 1px solid var(--black);
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  gap: 4px;
+  flex: 0 0 20px;
+  z-index: 100;
+}
+.menu-apple {
+  font-size: 13px;
+  cursor: default;
+  padding: 0 6px;
+  user-select: none;
+}
+.menus { display: flex; gap: 2px; }
+.menu {
+  font-family: var(--font-chicago);
+  font-size: 12px;
+  background: none;
+  border: none;
+  padding: 2px 8px;
+  cursor: default;
+}
+.menu:hover, .menu.open { background: var(--black); color: var(--white); }
+.menubar-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.card-indicator { font-size: 12px; }
+.flicker-toggle { cursor: default; font-size: 12px; user-select: none; }
+
+/* --- stage --- */
+#stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: auto;
+  padding: 24px;
+}
+
+/* --- the card window --- */
+.mac-window {
+  background: var(--white);
+  border: 1px solid var(--black);
+  box-shadow: 2px 2px 0 var(--black);
+}
+.title-bar {
+  height: 20px;
+  border-bottom: 1px solid var(--black);
+  display: flex;
+  align-items: center;
+  position: relative;
+  background:
+    repeating-linear-gradient(to bottom, #fff 0px, #fff 1px, #000 1px, #000 2px, #fff 2px, #fff 4px);
+  background-size: 100% 4px;
+}
+.title-bar::before, .title-bar::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 60px;
+  background: var(--white);
+}
+.title-bar::before { left: 40%; }
+.title-bar::after { display: none; }
+.title-bar-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--white);
+  padding: 0 8px;
+  font-size: 12px;
+  z-index: 1;
+  white-space: nowrap;
+}
+.title-bar-close {
+  position: absolute;
+  left: 8px; top: 5px;
+  width: 10px; height: 10px;
+  border: 1px solid var(--black);
+  background: var(--white);
+  z-index: 2;
+  cursor: default;
+}
+.title-bar-close:active { background: var(--black); }
+.title-bar-zoom {
+  position: absolute;
+  right: 8px; top: 4px;
+  width: 12px; height: 12px;
+  border: 1px solid var(--black);
+  background: var(--white);
+  z-index: 2;
+  cursor: default;
+}
+.title-bar-zoom::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border: 1px solid var(--black);
+}
+.title-bar-zoom:active { background: var(--black); }
+
+#card-viewport { padding: 0; }
+
+/* --- toolbar --- */
+#toolbar {
+  height: 24px;
+  border-top: 1px solid var(--black);
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  gap: 2px;
+  background: var(--white);
+}
+#toolbar.edit-mode { border-top-width: 2px; }
+.tool-btn {
+  font-family: var(--font-chicago);
+  font-size: 11px;
+  background: var(--white);
+  border: 1px solid transparent;
+  padding: 2px 5px;
+  cursor: default;
+  white-space: nowrap;
+}
+.tool-btn:hover { border-color: var(--black); }
+.tool-btn:active, .tool-btn.active {
+  background: var(--black);
+  color: var(--white);
+}
+.tool-sep {
+  width: 1px;
+  height: 14px;
+  background: var(--black);
+  margin: 0 3px;
+}
+
+.hint {
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--white);
+  text-shadow: 1px 1px 0 var(--black);
+  user-select: none;
+}
+
+/* CRT flicker (subtle, desktop only) */
+#desktop.flicker #card-window {
+  animation: crt-flicker 4s infinite;
+}
+@keyframes crt-flicker {
+  0%, 96%, 100% { filter: none; }
+  97% { filter: brightness(1.04); }
+  98% { filter: brightness(0.96); }
+  99% { filter: brightness(1.02); }
+}
+
+#import-input { display: none; }

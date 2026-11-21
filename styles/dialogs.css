@@ -1,0 +1,141 @@
+/* PhantomCard — dialogs, alerts, pulldown menus */
+#dialog-host {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+}
+#dialog-host.has-modal { pointer-events: auto; }
+
+.hc-dialog-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* patterned modal backdrop */
+  background: repeating-conic-gradient(rgba(255,255,255,0.55) 0% 25%, rgba(0,0,0,0.25) 0% 50%) 0 0 / 2px 2px;
+}
+.hc-dialog {
+  border: 1px solid var(--black);
+  box-shadow: 2px 2px 0 var(--black);
+  background: var(--white);
+  padding: 16px;
+  min-width: 240px;
+  max-width: 380px;
+  font-family: var(--font-chicago);
+  font-size: 12px;
+  display: flex;
+  gap: 12px;
+}
+.hc-dialog-icon {
+  flex: 0 0 32px;
+  width: 32px; height: 32px;
+}
+.hc-dialog-icon svg { width: 32px; height: 32px; display: block; }
+.hc-dialog-main { flex: 1; display: flex; flex-direction: column; }
+.hc-dialog-text {
+  font-family: var(--font-chicago);
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  margin-bottom: 12px;
+}
+.hc-dialog-input {
+  font-family: var(--font-geneva);
+  font-size: 12px;
+  border: 1px solid var(--black);
+  padding: 2px 4px;
+  margin-bottom: 12px;
+  outline: none;
+  width: 100%;
+}
+.hc-dialog-input:focus { background: var(--black); color: var(--white); }
+.hc-dialog-btns {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.hc-dialog-btns button {
+  font-family: var(--font-chicago);
+  font-size: 12px;
+  background: var(--white);
+  border: 1px solid var(--black);
+  border-radius: 4px;
+  padding: 3px 12px;
+  cursor: default;
+}
+.hc-dialog-btns button:active { background: var(--black); color: var(--white); }
+.hc-dialog-btns button.default {
+  outline: 3px solid var(--black);
+  outline-offset: 2px;
+}
+
+/* pulldown menus */
+#menu-host { position: fixed; z-index: 1100; }
+.hc-menu {
+  position: absolute;
+  background: var(--white);
+  border: 1px solid var(--black);
+  box-shadow: 2px 2px 0 var(--black);
+  min-width: 160px;
+  font-family: var(--font-chicago);
+  font-size: 12px;
+}
+.hc-menu-item {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px 0 18px;
+  cursor: default;
+  white-space: nowrap;
+  gap: 6px;
+}
+.hc-menu-item .shortcut { margin-left: auto; font-size: 10px; }
+.hc-menu-item:hover:not(.disabled), .hc-menu-item.selected {
+  background: var(--black);
+  color: var(--white);
+}
+.hc-menu-item.disabled { color: #888; }
+.hc-menu-item.checked::before {
+  content: '✓';
+  position: absolute;
+  margin-left: -14px;
+}
+.hc-menu-sep { height: 1px; background: var(--black); margin: 2px 0; }
+
+/* toast (share-link copied etc.) */
+.hc-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-chicago);
+  font-size: 12px;
+  padding: 6px 14px;
+  border: 1px solid var(--white);
+  z-index: 1200;
+}
+
+/* welcome / stack picker splash */
+.splash {
+  position: absolute;
+  inset: 0;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  z-index: 20;
+}
+.splash h1 {
+  font-family: var(--font-chicago);
+  font-size: 24px;
+  letter-spacing: 1px;
+}
+.splash .ghost { font-size: 44px; }
+.splash .tagline { font-size: 12px; }
+.splash .splash-stacks { display: flex; gap: 12px; margin-top: 8px; }

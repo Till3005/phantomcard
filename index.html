@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PhantomCard — HyperCard, resurrected</title>
+<meta name="description" content="A haunted resurrection of Apple's HyperCard: build stacks of cards, wire them with HyperTalk, and share them with a link.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='13' font-size='13'>👻</text></svg>">
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/card.css">
+<link rel="stylesheet" href="styles/editor.css">
+<link rel="stylesheet" href="styles/dialogs.css">
+</head>
+<body>
+<div id="desktop">
+  <header id="menubar" aria-label="PhantomCard menu bar">
+    <span class="menu-apple" id="apple-menu" title="About PhantomCard">👻</span>
+    <nav class="menus">
+      <button class="menu" data-menu="file">File</button>
+      <button class="menu" data-menu="edit">Edit</button>
+      <button class="menu" data-menu="go">Go</button>
+      <button class="menu" data-menu="tools">Tools</button>
+      <button class="menu" data-menu="stacks">Stacks</button>
+    </nav>
+    <span class="menubar-right">
+      <span id="card-indicator" class="card-indicator">Card 1 of 1</span>
+      <span id="flicker-toggle" class="flicker-toggle" title="Toggle CRT flicker">📺</span>
+    </span>
+  </header>
+
+  <main id="stage">
+    <div id="card-window" class="mac-window">
+      <div class="title-bar" id="title-bar">
+        <span class="title-bar-close" id="tb-close" title="Close (goes to the séance parlour)"></span>
+        <span class="title-bar-title" id="stack-title">PhantomCard</span>
+        <span class="title-bar-zoom" id="tb-zoom" title="Zoom"></span>
+      </div>
+      <div id="card-viewport">
+        <div id="card-canvas" aria-label="Card canvas"></div>
+      </div>
+      <div id="toolbar" role="toolbar" aria-label="Card tools">
+        <button id="tb-first" class="tool-btn" title="First card">|◀</button>
+        <button id="tb-prev" class="tool-btn" title="Previous card">◀</button>
+        <button id="tb-next" class="tool-btn" title="Next card">▶</button>
+        <button id="tb-last" class="tool-btn" title="Last card">▶|</button>
+        <span class="tool-sep"></span>
+        <button id="tb-browse" class="tool-btn mode-btn" title="Browse (B)">🖐 Browse</button>
+        <button id="tb-button" class="tool-btn mode-btn" title="Button tool">▭ Button</button>
+        <button id="tb-field" class="tool-btn mode-btn" title="Field tool">▤ Field</button>
+        <button id="tb-label" class="tool-btn mode-btn" title="Label tool">T Label</button>
+        <span class="tool-sep"></span>
+        <button id="tb-newcard" class="tool-btn" title="New card">+ Card</button>
+        <button id="tb-delcard" class="tool-btn" title="Delete card">− Card</button>
+        <span class="tool-sep"></span>
+        <button id="tb-share" class="tool-btn" title="Copy share link">🔗 Share</button>
+        <button id="tb-export" class="tool-btn" title="Export stack (.json)">⇩</button>
+        <button id="tb-import" class="tool-btn" title="Import stack (.json)">⇧</button>
+      </div>
+    </div>
+    <p id="hint" class="hint">a ghost of HyperCard, summoned for Kiroween 2026</p>
+  </main>
+
+  <div id="inspector-host"></div>
+  <div id="dialog-host"></div>
+  <div id="menu-host"></div>
+  <input type="file" id="import-input" accept=".json,application/json" hidden>
+</div>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
