@@ -647,16 +647,35 @@ export class Interpreter {
     return obj ? (obj.text || '') : '';
   }
 
-  _evalFunctionCall(node, ctx) {
+  async _evalFunctionCall(node, ctx) {
     if (node.name === 'theNumberOf') {
       const what = node.arg.toLowerCase();
       if (what === 'cards') {
         return String(this.runtime.stack.cardOrder.length);
       }
-      // 'the number of buttons', etc. — not implemented, return 0
+      if (what === 'buttons' || what === 'fields') {
+        const card = this.runtime.getCurrentCard();
+        const kind = what === 'buttons' ? 'button' : 'field';
+        return String((card?.objects || []).filter((o) => o.type === kind).length);
+      }
+      // 'the number of <chunk> of <expr>'
+      if (node.container) {
+        const text = await this._evalExpr(node.container, ctx);
+        return String(this._countChunks(what, text));
+      }
       return '0';
     }
     throw new RuntimeError(`Unknown function '${node.name}'`, node.line);
+  }
+
+  _countChunks(kind, text) {
+    const s = String(text ?? '');
+    if (s === '') return 0;
+    if (kind === 'chars' || kind === 'char') return [...s].length;
+    if (kind === 'lines' || kind === 'line') return s.split('\n').length;
+    if (kind === 'items' || kind === 'item') return s.split(',').length;
+    if (kind === 'words' || kind === 'word') return s.split(/\s+/).filter((w) => w.length > 0).length;
+    return 0;
   }
 
   async _evalPropertyRef(node, ctx) {

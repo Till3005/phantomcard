@@ -45,11 +45,6 @@ export function ouijaStack() {
   add({ id: 'bye', kind: 'label', name: 'goodbye', text: 'G O O D   B Y E', left: 176, top: 300, width: 160, height: 24, visible: true, size: 16, textAlign: 'center' });
 
   // the planchette — a transparent-button "window" that glides over letters
-  add({
-    id: 'counter', kind: 'field', name: 'counter', text: '0',
-    left: 8, top: 320, width: 40, height: 16, visible: false,
-    style: 'transparent', lockText: true, script: '', size: 9, textAlign: 'left',
-  });
 add({
     id: 'planchette', kind: 'button', name: '◈', left: 236, top: 168, width: 40, height: 40,
     visible: true, style: 'transparent', showName: true, enabled: true, hilite: false, anim: 'float',
@@ -60,12 +55,9 @@ add({
     answer "The spirits refuse a silent question." with "Try again"
     exit mouseUp
   end if
-  put card field "counter" into c
-  if c = "" then put 0 into c
-  put c + 1 into c
-  put c into card field "counter"
+  put it into question
   put "Perhaps,Yes,No,Soon,Never,Ask the moon,All signs point to yes,The veil is thin,Do not" into omens
-  put (c mod 9) + 1 into idx
+  put ((the number of chars of question) mod (the number of items of omens)) + 1 into idx
   put item idx of omens into omen
   play "whisper"
   answer "The planchette circles… the spirits answer: " & omen with "So be it" 
@@ -80,12 +72,9 @@ end mouseUp`,
     answer "The spirits refuse a silent question." with "Try again"
     exit mouseUp
   end if
-  put card field "counter" into c
-  if c = "" then put 0 into c
-  put c + 1 into c
-  put c into card field "counter"
+  put it into question
   put "Perhaps,Yes,No,Soon,Never,Ask the moon,All signs point to yes,The veil is thin,Do not" into omens
-  put (c mod 9) + 1 into idx
+  put ((the number of chars of question) mod (the number of items of omens)) + 1 into idx
   put item idx of omens into omen
   play "creeak"
   answer "The candles gutter. The answer is " & omen & "." with "So be it"

@@ -924,11 +924,18 @@ class Parser {
     }
     const prop = this.advance().value;
 
-    // 'the number of cards' or 'the number of <object>'
+    // 'the number of cards' or 'the number of <something>'
     if (prop === 'number') {
       this.expect(TT.KEYWORD, 'of');
       const ofWhat = this.peek().value;
       this.advance();
+      // 'the number of <chunk> of <expr>' — e.g. items/lines/words/chars of omens
+      const chunkKinds = ['char','chars','word','words','line','lines','item','items'];
+      if (chunkKinds.includes(ofWhat) && this.check(TT.KEYWORD, 'of')) {
+        this.advance();
+        const container = this.parseExpr();
+        return { type: 'FunctionCall', name: 'theNumberOf', arg: ofWhat, container, line };
+      }
       return { type: 'FunctionCall', name: 'theNumberOf', arg: ofWhat, line };
     }
 
